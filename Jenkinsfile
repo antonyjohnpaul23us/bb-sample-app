@@ -1,20 +1,11 @@
-pipeline {
-    agent none
-    stages {
-        stage('Back-end') {
-            agent {
-                docker { image 'maven:3.8.1-adoptopenjdk-11' }
-            }
-            steps {
-                sh 'mvn --version'
-            }
-        }
-        stage('Front-end') {
-            agent {
-                docker { image 'node:14-alpine' }
-            }
-            steps {
-                sh 'node --version'
+podTemplate(label: 'mypod', containers: [
+    containerTemplate(name: 'kubectl', image: 'gcr.io/cloud-builders/kubectl', command: 'cat', ttyEnabled: true)
+  ]
+  ) {
+    node('mypod') {
+        stage('Kubectl testing with k8s cluster') {
+            container('kubectl') {
+                sh("kubectl get pods --all-namespaces")
             }
         }
     }
