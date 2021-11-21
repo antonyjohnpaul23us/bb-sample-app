@@ -1,11 +1,11 @@
 pipeline {
     agent {
         kubernetes {
-            label 'kaniko'
+            label 'bbsampleapp'
             yaml """
 kind: Pod
 metadata:
-  name: kaniko
+  name: bbsampleapp
 spec:
   containers:
   - name: helm
@@ -49,9 +49,12 @@ spec:
             steps {
                 container(name: 'helm', shell: '/bin/sh') {
                     sh '''
+                    git version
+                    git clone https://github.com/antonyjohnpaul23us/testq.git
                     helm repo add bitnami https://charts.bitnami.com/bitnami
                     helm repo update
-                    helm upgrade --install my-release bitnami/tomcat --namespace=jenkins -f helm_overwrite_tomcat_values.yaml --set tomcatPassword=tomcat
+                    ls -lrt testq
+                    helm upgrade --install my-release bitnami/tomcat --namespace=jenkins -f testq/helm_overwrite_tomcat_values.yaml --set tomcatPassword=tomcat
                     '''
                 }
             }
