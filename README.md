@@ -13,7 +13,7 @@ This Dockerfile bundles the war on top of a tomcat base image
 ### Jenkinsfile:
 - Since the Jenkins server and agent nodes are deployed in kubernetes, it is required to ensure the building of docker images. Instead of using 'docker build' in this scenario by exposing docker. sock which is a potential threat, kaniko has been chosen due to the benefits it has over docker during DinD operations.
 - One the image is created with kaniko, it is pushed into docker registry (https://hub.docker.com/repository/docker/antonyjohnpaul23usgmail/bb-sample-app). The credentials for Dockerhub are scripted to auto-deploy as Kubernetes secrets while deploying Jenkins master into k8s.
-- Helm has been used to deploy the docker container from dockerHub, using the bitnami Helm Chart.
+- Helm has been used to deploy the docker container from dockerHub into the AKS instance.
 - Git actions / scm are not configured since the input to the pipeline is a war file and not source code, but that can be done.
 - Enhancements Suggested for a wholistic pipeline:
   - Creating a full fledged End to End Pipeline integrating build process from code, static code analysis ( and potential Build breaker thresholds)
