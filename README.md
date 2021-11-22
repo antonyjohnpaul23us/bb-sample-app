@@ -3,7 +3,6 @@
 
 Application of Interest: https://tomcat.apache.org/tomcat-8.0-doc/appdev/sample/
 
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
 The Repository simply holds a sample application (sample.war) that is built as a docker container adn deployed using bitnami/tomcat helm charts. 
 
